@@ -14,9 +14,7 @@ namespace TP_1_DAI.Controllers
     public class PizzaController : ControllerBase
     {
 
-        private static List<Pizza> _Pizzas = new List<Pizza>();
-        // private static BD bd = new BD();
-        
+        private static List<Pizza> _Pizzas = new List<Pizza>();        
 
         [HttpGet]
         public IActionResult GetAll(){
