@@ -8,6 +8,6 @@ namespace TP_1_DAI.Models
         public string Nombre {get; set;}
         public bool LibreDeGluten {get; set;}
         public float Importe {get; set;}
-        public float Descripcion {get; set;}
+        public string Descripcion {get; set;}
     }
 }
