@@ -30,29 +30,80 @@ namespace TP_1_DAI.Controllers
 
         }
 
-        /* [HttpGet("{id}")]
-        public IActionResult GetAll(int id){
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id){
 
+            if(id > 0){
+                Pizza pizza;
+                pizza = BD.GetPizzaById(id);
+                
+                if(pizza == null) {
+                    return NotFound("Pizza no encontrada");
+                }
+
+                return Ok(pizza);
+            } 
+
+            return BadRequest("Id incorrecto");
+
+            
         }
 
         [HttpPost]
         public IActionResult Create(Pizza pizza) {
+            
+            if(pizza.Nombre == "" || pizza.Importe <= 0 || pizza.Descripcion == ""){
+                return BadRequest("Inserte todos los datos!"); 
+            }
 
+            int resp;
+            resp = BD.CreatePizza(pizza);
+            if(resp == 1) {
+                return Ok("Pizza creada");
+            }
+
+            return BadRequest();
         }
+
+        
 
         [HttpPut("{id}")]
         public IActionResult Update(int Id, Pizza pizza) {
             
+            if(pizza.Nombre == "" || pizza.Importe <= 0 || pizza.Descripcion == ""){
+                return BadRequest("Inserte todos los datos!"); 
+            }  else if(Id < 1) {
+                return BadRequest("Id incorrecto"); 
+            }
+
+            int resp;
+            resp = BD.UpdatePizza(Id, pizza);
+            if(resp == 1) {
+                return Ok("Pizza actualizada");
+            }
+
+            return NotFound();
+
+
         }
-
+        
+        
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id) {
+        public IActionResult Delete(int id) {   
+                
+            if(id > 0){
+                
+                int resp;
+                resp = BD.DeletePizza(id);
+                
+                if(resp == 1) {
+                    return Ok("Pizza elimanada");
+                }
 
-        } */
+                return NotFound("Pizza no encontrada");
+            } 
 
-
-
-
-
+            return BadRequest("Id incorrecto");
+        } 
     }
 }
