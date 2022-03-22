@@ -57,7 +57,7 @@ namespace TP_1_DAI.Controllers
             int resp;
             resp = BD.CreatePizza(pizza);
             if(resp == 1) {
-                return Ok("Pizza creada");
+                return CreatedAtAction(nameof(Create), "Pizza creada");
             }
 
             return BadRequest();
