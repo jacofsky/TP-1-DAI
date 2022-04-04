@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.SqlClient;
@@ -13,9 +14,11 @@ namespace TP_1_DAI.Utils
         private static string _connectionString = "Persist Security Info=False;User ID=Pizzas;password=Pizzas;Initial Catalog=DAI-Pizzas;Data Source=.;";
 
         public static SqlConnection GetSqlConnection() {
+            
             return new SqlConnection(_connectionString);
+
         }
-        
+
     }
 }
 
