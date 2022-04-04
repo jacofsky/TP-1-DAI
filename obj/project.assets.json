@@ -482,19 +482,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\MTR\\.nuget\\packages\\": {}
+    "C:\\Users\\46028307\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Desktop\\TP-1-DAI\\TP-1-DAI.csproj",
+      "projectUniqueName": "C:\\Users\\46028307\\Desktop\\TP-1-DAI\\TP-1-DAI.csproj",
       "projectName": "TP-1-DAI",
-      "projectPath": "E:\\Desktop\\TP-1-DAI\\TP-1-DAI.csproj",
-      "packagesPath": "C:\\Users\\MTR\\.nuget\\packages\\",
-      "outputPath": "E:\\Desktop\\TP-1-DAI\\obj\\",
+      "projectPath": "C:\\Users\\46028307\\Desktop\\TP-1-DAI\\TP-1-DAI.csproj",
+      "packagesPath": "C:\\Users\\46028307\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\46028307\\Desktop\\TP-1-DAI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\MTR\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\46028307\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -547,7 +547,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   }

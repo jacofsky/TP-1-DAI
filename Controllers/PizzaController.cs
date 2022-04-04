@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TP_1_DAI.Utils;
 using TP_1_DAI.Models;
+using TP_1_DAI.Services;
 
 namespace TP_1_DAI.Controllers
 {
@@ -22,7 +23,7 @@ namespace TP_1_DAI.Controllers
             IActionResult respuesta;
             List<Pizza> listaDePizzas;
 
-            listaDePizzas = BD.GetAllPizzas();
+            listaDePizzas = PizzaServices.GetAllPizzas();
             respuesta = Ok(listaDePizzas);
             return respuesta;
 
@@ -33,7 +34,7 @@ namespace TP_1_DAI.Controllers
 
             if(id > 0){
                 Pizza pizza;
-                pizza = BD.GetPizzaById(id);
+                pizza = PizzaServices.GetPizzaById(id);
                 
                 if(pizza == null) {
                     return NotFound("Pizza no encontrada");
@@ -55,7 +56,7 @@ namespace TP_1_DAI.Controllers
             }
 
             int resp;
-            resp = BD.CreatePizza(pizza);
+            resp = PizzaServices.CreatePizza(pizza);
             if(resp == 1) {
                 return CreatedAtAction(nameof(Create), "Pizza creada");
             }
@@ -75,7 +76,7 @@ namespace TP_1_DAI.Controllers
             }
 
             int resp;
-            resp = BD.UpdatePizza(Id, pizza);
+            resp = PizzaServices.UpdatePizza(Id, pizza);
             if(resp == 1) {
                 return Ok("Pizza actualizada");
             }
@@ -92,7 +93,7 @@ namespace TP_1_DAI.Controllers
             if(id > 0){
                 
                 int resp;
-                resp = BD.DeletePizza(id);
+                resp = PizzaServices.DeletePizza(id);
                 
                 if(resp == 1) {
                     return Ok("Pizza elimanada");
