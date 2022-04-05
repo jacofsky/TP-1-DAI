@@ -55,31 +55,41 @@ namespace TP_1_DAI.Controllers
                 return BadRequest("Inserte todos los datos!"); 
             }
 
+            string headerToken = Request.Headers["token"];
+
+
             int resp;
-            resp = PizzaServices.CreatePizza(pizza);
+            resp = PizzaServices.CreatePizza(pizza, headerToken);
+
             if(resp != -1) {
-                return CreatedAtAction(nameof(Create), resp);
+                if(resp != -2) {
+                    return CreatedAtAction(nameof(Create), resp);
+                }
+                return BadRequest();
             }
 
-            return BadRequest();
+            return Unauthorized("No se encuentra autenticado");
+
         }
 
         
 
-        [HttpPut("{Id}")]
-        public IActionResult Update(int Id, Pizza pizza) {
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, Pizza pizza) {
             
             if(pizza.Nombre == "" || pizza.Importe <= 0 || pizza.Descripcion == ""){
                 return BadRequest("Inserte todos los datos!"); 
-            }  else if(Id < 1) {
-                return BadRequest("Id incorrecto"); 
-            }
+            }  else if(id < 1) {
+                return BadRequest("id incorrecto"); 
+            } else if (id != pizza.Id) {
+                return BadRequest("Los ids no coinciden"); 
+            } 
 
             string headerToken = Request.Headers["token"];
 
-            int resp = PizzaServices.UpdatePizza(Id, pizza, headerToken);
+            int resp = PizzaServices.UpdatePizza(id, pizza, headerToken);
 
-             
+            Console.WriteLine(resp);
             if(resp == 1) {
                 return Ok("Pizza actualizada");
             } else if(resp == 0){
@@ -95,17 +105,26 @@ namespace TP_1_DAI.Controllers
         
         [HttpDelete("{id}")]
         public IActionResult Delete(int id) {   
+
+            string headerToken = Request.Headers["token"];
+
                 
+
             if(id > 0){
                 
                 int resp;
-                resp = PizzaServices.DeletePizza(id);
-                
-                if(resp == 1) {
-                    return Ok("Pizza elimanada");
+                resp = PizzaServices.DeletePizza(id, headerToken);
+
+                if(resp != -2) {
+                    if(resp == 1) {
+                        return Ok("Pizza elimanada");
+                    }
+
+                    return NotFound("Pizza no encontrada");
                 }
 
-                return NotFound("Pizza no encontrada");
+                return Unauthorized("No se encuentra autenticado"); 
+                
             } 
 
             return BadRequest("Id incorrecto");

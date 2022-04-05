@@ -36,18 +36,26 @@ namespace TP_1_DAI.Services
             return pizza;
         }
 
-        public static int CreatePizza(Pizza pizza) {
+        public static int CreatePizza(Pizza pizza, string token) {
             
             int count = 0;
-            int id = -1;
+            int id = -2;
 
-            using(SqlConnection db = BD.GetSqlConnection()){
-                string query = "INSERT INTO Pizzas VALUES (@Nombre, @LibreDeGluten, @Importe, @Descripcion) SELECT CAST(SCOPE_IDENTITY() AS INT)";
-                count = db.Execute(query, new {Nombre = pizza.Nombre, LibreDeGluten = pizza.LibreDeGluten, Importe = pizza.Importe, Descripcion = pizza.Descripcion});
-                id = db.QuerySingle<int>(query, new {Nombre = pizza.Nombre, LibreDeGluten = pizza.LibreDeGluten, Importe = pizza.Importe, Descripcion = pizza.Descripcion});
-            };
+            Usuario usuario = UsuarioServices.GetByToken(token);
 
-            return id;
+            if(usuario != null){
+
+                using(SqlConnection db = BD.GetSqlConnection()){
+                    string query = "INSERT INTO Pizzas VALUES (@Nombre, @LibreDeGluten, @Importe, @Descripcion) SELECT CAST(SCOPE_IDENTITY() AS INT)";
+                    count = db.Execute(query, new {Nombre = pizza.Nombre, LibreDeGluten = pizza.LibreDeGluten, Importe = pizza.Importe, Descripcion = pizza.Descripcion});
+                    id = db.QuerySingle<int>(query, new {Nombre = pizza.Nombre, LibreDeGluten = pizza.LibreDeGluten, Importe = pizza.Importe, Descripcion = pizza.Descripcion});
+                };
+
+                return id;
+            }
+
+            return -1;
+
         }
 
         public static int UpdatePizza(int ID, Pizza pizza, string token) {
@@ -70,15 +78,22 @@ namespace TP_1_DAI.Services
             
         }
 
-        public static int DeletePizza(int ID) {
+        public static int DeletePizza(int ID, string token) {
             
             int count = 0;
 
-            using(SqlConnection db = BD.GetSqlConnection()){
-                string query = "DELETE FROM Pizzas WHERE Id = @ID";
-                count = db.Execute(query, new {ID});
+            Usuario usuario = UsuarioServices.GetByToken(token);
+
+            if(usuario != null) {
+                using(SqlConnection db = BD.GetSqlConnection()){
+                    string query = "DELETE FROM Pizzas WHERE Id = @ID";
+                    count = db.Execute(query, new {ID});
+                }
+                return count;
             }
-            return count;
+
+            return -2;
+            
         }
 
     }
