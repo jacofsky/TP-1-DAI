@@ -57,8 +57,8 @@ namespace TP_1_DAI.Controllers
 
             int resp;
             resp = PizzaServices.CreatePizza(pizza);
-            if(resp == 1) {
-                return CreatedAtAction(nameof(Create), "Pizza creada");
+            if(resp != -1) {
+                return CreatedAtAction(nameof(Create), resp);
             }
 
             return BadRequest();
@@ -66,7 +66,7 @@ namespace TP_1_DAI.Controllers
 
         
 
-        [HttpPut("{id}")]
+        [HttpPut("{Id}")]
         public IActionResult Update(int Id, Pizza pizza) {
             
             if(pizza.Nombre == "" || pizza.Importe <= 0 || pizza.Descripcion == ""){
@@ -75,13 +75,19 @@ namespace TP_1_DAI.Controllers
                 return BadRequest("Id incorrecto"); 
             }
 
-            int resp;
-            resp = PizzaServices.UpdatePizza(Id, pizza);
+            string headerToken = Request.Headers["token"];
+
+            int resp = PizzaServices.UpdatePizza(Id, pizza, headerToken);
+
+             
             if(resp == 1) {
                 return Ok("Pizza actualizada");
+            } else if(resp == 0){
+                return NotFound();
             }
+            
+            return Unauthorized("No se encuentra autenticado");
 
-            return NotFound();
 
 
         }

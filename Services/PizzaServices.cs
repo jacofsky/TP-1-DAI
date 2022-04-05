@@ -5,6 +5,7 @@ using Dapper;
 
 using TP_1_DAI.Models;
 using TP_1_DAI.Utils;
+using TP_1_DAI.Services;
 
 namespace TP_1_DAI.Services
 {
@@ -38,25 +39,35 @@ namespace TP_1_DAI.Services
         public static int CreatePizza(Pizza pizza) {
             
             int count = 0;
+            int id = -1;
 
             using(SqlConnection db = BD.GetSqlConnection()){
-                string query = "INSERT INTO Pizzas VALUES (@Nombre, @LibreDeGluten, @Importe, @Descripcion)";
+                string query = "INSERT INTO Pizzas VALUES (@Nombre, @LibreDeGluten, @Importe, @Descripcion) SELECT CAST(SCOPE_IDENTITY() AS INT)";
                 count = db.Execute(query, new {Nombre = pizza.Nombre, LibreDeGluten = pizza.LibreDeGluten, Importe = pizza.Importe, Descripcion = pizza.Descripcion});
+                id = db.QuerySingle<int>(query, new {Nombre = pizza.Nombre, LibreDeGluten = pizza.LibreDeGluten, Importe = pizza.Importe, Descripcion = pizza.Descripcion});
             };
 
-            return count;
+            return id;
         }
 
-        public static int UpdatePizza(int ID, Pizza pizza) {
+        public static int UpdatePizza(int ID, Pizza pizza, string token) {
             
             int count = 0;
+            Usuario usuario = UsuarioServices.GetByToken(token);
 
-            using(SqlConnection db = BD.GetSqlConnection()){
+            if(usuario != null){
+
+                using(SqlConnection db = BD.GetSqlConnection()){
                 string query = "UPDATE Pizzas SET Nombre = @Nombre, LibreGluten = @LibreDeGluten, Importe = @Importe, Descripcion = @Descripcion WHERE id = @ID";
                 count = db.Execute(query, new {Nombre = pizza.Nombre, LibreDeGluten = pizza.LibreDeGluten, Importe = pizza.Importe, Descripcion = pizza.Descripcion, ID});
-            };
+                };
 
-            return count;
+                return count;
+                
+            }
+
+            return -1;
+            
         }
 
         public static int DeletePizza(int ID) {
