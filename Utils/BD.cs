@@ -11,7 +11,7 @@ namespace TP_1_DAI.Utils
     
     public static class BD
     {
-        private static string _connectionString = "Persist Security Info=False;User ID=Pizzas;password=Pizzas;Initial Catalog=DAI-Pizzas;Data Source=.;";
+        private static string _connectionString = @"Persist Security Info=False;User ID=Pizzas;password=Pizzas;Initial Catalog=DAI-Pizzas;Data Source=.;";
 
         public static SqlConnection GetSqlConnection() {
             

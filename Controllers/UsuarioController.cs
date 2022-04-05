@@ -18,7 +18,14 @@ namespace TP_1_DAI.Controllers
         [HttpPost]
         public IActionResult Login(Usuario usuario) {
 
+            Usuario user = UsuarioServices.Login(usuario.UserName, usuario.Password);
+
+            if (user != null)
+            {
+                return Ok(user);
+            }
             
+            return NotFound();
 
         }
 

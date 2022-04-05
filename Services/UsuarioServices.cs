@@ -29,9 +29,9 @@ namespace TP_1_DAI.Services
             return usuario;
         }
 
-        private static RefreshToken(int id) {
+        private static string RefreshToken(int id) {
 
-            string nuevoId = Guid.NewGuid().ToString(); 
+            string nuevoId = System.Guid.NewGuid().ToString(); 
             int count = 0;
 
 
