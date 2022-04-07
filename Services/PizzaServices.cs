@@ -6,6 +6,7 @@ using Dapper;
 using TP_1_DAI.Models;
 using TP_1_DAI.Utils;
 using TP_1_DAI.Services;
+using TP_1_DAI.Helpers;
 
 namespace TP_1_DAI.Services
 {
@@ -41,9 +42,9 @@ namespace TP_1_DAI.Services
             int count = 0;
             int id = -2;
 
-            Usuario usuario = UsuarioServices.GetByToken(token);
+            bool validToken = SecurityHelper.IsValidToken(token);
 
-            if(usuario != null){
+            if(validToken == true){
 
                 using(SqlConnection db = BD.GetSqlConnection()){
                     string query = "INSERT INTO Pizzas VALUES (@Nombre, @LibreDeGluten, @Importe, @Descripcion) SELECT CAST(SCOPE_IDENTITY() AS INT)";
@@ -61,10 +62,11 @@ namespace TP_1_DAI.Services
         public static int UpdatePizza(int ID, Pizza pizza, string token) {
             
             int count = 0;
-            Usuario usuario = UsuarioServices.GetByToken(token);
 
-            if(usuario != null){
+            bool validToken = SecurityHelper.IsValidToken(token);
 
+            if(validToken == true){
+                
                 using(SqlConnection db = BD.GetSqlConnection()){
                 string query = "UPDATE Pizzas SET Nombre = @Nombre, LibreGluten = @LibreDeGluten, Importe = @Importe, Descripcion = @Descripcion WHERE id = @ID";
                 count = db.Execute(query, new {Nombre = pizza.Nombre, LibreDeGluten = pizza.LibreDeGluten, Importe = pizza.Importe, Descripcion = pizza.Descripcion, ID});
@@ -82,9 +84,10 @@ namespace TP_1_DAI.Services
             
             int count = 0;
 
-            Usuario usuario = UsuarioServices.GetByToken(token);
+            bool validToken = SecurityHelper.IsValidToken(token);
 
-            if(usuario != null) {
+
+            if(validToken == true) {
                 using(SqlConnection db = BD.GetSqlConnection()){
                     string query = "DELETE FROM Pizzas WHERE Id = @ID";
                     count = db.Execute(query, new {ID});
