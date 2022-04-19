@@ -8,18 +8,22 @@ namespace TP_1_DAI.Helpers
     {
         public static bool AppendInFile(string fullFileName, string data) {
             
-            bool returnValue = false;
-            
-            
-            using (StreamWriter sw = File.AppendText(fullFileName))
+            try
+            {    
+                using (StreamWriter sw = File.AppendText(fullFileName))
+                {
+                    sw.WriteLine(data);
+                    return true;
+                }
+            }
+            catch (Exception e)
             {
-                sw.WriteLine(data);
-                returnValue = true;
+                Console.WriteLine(e);
+                return false;
             }
 
-            return returnValue;
-
         }
+        
     }
 
 }

@@ -1,4 +1,8 @@
 using System;
+using Newtonsoft.Json;
+using TP_1_DAI.Helpers;
+using System.IO;
+
 
 namespace TP_1_DAI.Utils
 {
@@ -19,7 +23,7 @@ namespace TP_1_DAI.Utils
 
             string data, dataString = "";
             if(datos != null) {
-                dataString = JsonConverter.Ser
+                dataString = JsonConvert.SerializeObject(datos);
             }
 
             data = string.Format("{0} {1}{2}{3}{4}", 
@@ -29,6 +33,24 @@ namespace TP_1_DAI.Utils
                     (contexto != null) ? $"\n\tContexto\t= {contexto}" : "",
                     (datos != null) ? $"\n\tClassName\t= {datos}" : ""
             );
+
+            try
+            {
+                string path = ConfigurationHelper.GetConfiguration()["CustomLog:LogFolder"];
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                string fullFileName = ConfigurationHelper.GetConfiguration()["CustomLog:LogFolder"] + @"\log.txt";
+                IOHelper.AppendInFile(fullFileName, data);
+
+            
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
             
 
         }

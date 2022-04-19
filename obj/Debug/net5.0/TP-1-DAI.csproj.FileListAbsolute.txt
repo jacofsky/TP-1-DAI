@@ -91,3 +91,10 @@ E:\Users\Jaco\Desktop\TP-1-DAI\obj\Debug\net5.0\scopedcss\bundle\TP-1-DAI.styles
 E:\Users\Jaco\Desktop\TP-1-DAI\obj\Debug\net5.0\TP-1-DAI.RazorTargetAssemblyInfo.cache
 E:\Users\Jaco\Desktop\TP-1-DAI\obj\Debug\net5.0\TP-1-DAI.csproj.CopyComplete
 E:\Users\Jaco\Desktop\TP-1-DAI\obj\Debug\net5.0\TP-1-DAI.genruntimeconfig.cache
+C:\Users\46028307\Desktop\TP-1-DAI\bin\Debug\net5.0\Microsoft.Extensions.Configuration.dll
+C:\Users\46028307\Desktop\TP-1-DAI\bin\Debug\net5.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\46028307\Desktop\TP-1-DAI\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\46028307\Desktop\TP-1-DAI\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\46028307\Desktop\TP-1-DAI\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\46028307\Desktop\TP-1-DAI\bin\Debug\net5.0\System.Text.Encodings.Web.dll
+C:\Users\46028307\Desktop\TP-1-DAI\bin\Debug\net5.0\System.Text.Json.dll
