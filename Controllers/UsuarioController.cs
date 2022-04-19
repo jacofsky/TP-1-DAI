@@ -8,6 +8,7 @@ using TP_1_DAI.Utils;
 using TP_1_DAI.Models;
 using TP_1_DAI.Services;
 
+
 namespace TP_1_DAI.Controllers
 {
     [ApiController]
@@ -18,14 +19,25 @@ namespace TP_1_DAI.Controllers
         [HttpPost]
         public IActionResult Login(Usuario usuario) {
 
-            Usuario user = UsuarioServices.Login(usuario.UserName, usuario.Password);
 
-            if (user != null)
+            try
             {
-                return Ok(user);
+                Usuario user = UsuarioServices.Login(usuario.UserName, usuario.Password);
+
+                if (user != null)
+                {
+                    return Ok(user);
+                }
+                
+                return NotFound();
+                
             }
-            
-            return NotFound();
+            catch (Exception)
+            {
+                
+                throw;
+                
+            }
 
         }
 

@@ -16,8 +16,13 @@ namespace TP_1_DAI.Utils
 
 
         }
+
+        public static void LogError(Exception ex, string className, string functionName){
+            LogError(ex.Message, className, functionName, null);
+        }
+
         public static void LogError (Exception ex, string className, string contexto, object datos) {
-            LogError(ex.ToString(), null, null, datos);
+            LogError(ex.ToString(), className, contexto, datos);
         }
         public static void LogError (string errorData, string className, string contexto, object datos) {
 

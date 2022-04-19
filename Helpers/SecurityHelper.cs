@@ -4,6 +4,10 @@ using System;
 
 using TP_1_DAI.Models;
 using TP_1_DAI.Services;
+using TP_1_DAI.Utils;
+
+using System.Reflection;
+
 
 namespace TP_1_DAI.Helpers
 {
@@ -12,21 +16,31 @@ namespace TP_1_DAI.Helpers
 
         public static bool IsValidToken(string token) {
 
-            Usuario usuario = UsuarioServices.GetByToken(token);
+            try
+            {
+                Usuario usuario = UsuarioServices.GetByToken(token);
 
 
-            if(usuario != null) {
+                if(usuario != null) {
 
-                int compare = DateTime.Compare(usuario.TokenExpirationDate, DateTime.Now); 
-                
-                if(compare > 0 ) {
-                    return true;
+                    int compare = DateTime.Compare(usuario.TokenExpirationDate, DateTime.Now); 
+                    
+                    if(compare > 0 ) {
+                        return true;
+                    }
+
+                    return false;
                 }
 
                 return false;
+                
             }
-
-            return false;
+            catch (Exception)
+            {
+                
+                throw;
+                
+            }
         }
 
     }

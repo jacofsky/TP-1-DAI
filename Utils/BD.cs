@@ -13,11 +13,20 @@ namespace TP_1_DAI.Utils
     
     public static class BD
     {
-       private static string _connectionString = ConfigurationHelper.GetConfiguration().GetValue<string>("DatabaseSettings:ConnectionString");
+       private static string _connectionString = ConfigurationHelper.GetConfiguration()["DatabaseSettings:ConnectionString"];
 
         public static SqlConnection GetSqlConnection() {
+
+            try
+            {
+                return new SqlConnection(_connectionString);
+                
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
             
-            return new SqlConnection(_connectionString);
 
         }
 
